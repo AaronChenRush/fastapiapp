@@ -16,7 +16,7 @@ import logging
 import os
 import uvicorn
 from fastapi import FastAPI, Request, status
-from fastapi.middleware.cors import CORSMiddleware
+#from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from slowapi import _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
@@ -116,18 +116,18 @@ app.add_middleware(RequestTrackingMiddleware)
 app.add_middleware(RequestSizeLimitMiddleware)
 
 # Request logging middleware (must be added before CORS)
-app.add_middleware(RequestLoggingMiddleware)
+#app.add_middleware(RequestLoggingMiddleware)
 
 # CORS configuration with preflight caching
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=settings.ALLOWED_ORIGINS,
-    allow_credentials=True,
-    allow_methods=["GET", "POST", "OPTIONS"],
-    allow_headers=["Content-Type", "Authorization", "X-Admin-Key", "X-Request-ID"],
-    expose_headers=["X-Request-ID"],
-    max_age=3600,  # Cache preflight requests for 1 hour
-)
+# app.add_middleware(
+#     CORSMiddleware,
+#     allow_origins=settings.ALLOWED_ORIGINS,
+#     allow_credentials=True,
+#     allow_methods=["GET", "POST", "OPTIONS"],
+#     allow_headers=["Content-Type", "Authorization", "X-Admin-Key", "X-Request-ID"],
+#     expose_headers=["X-Request-ID"],
+#     max_age=3600,  # Cache preflight requests for 1 hour
+# )
 
 # Include routers - versioned API (v1 is the canonical version)
 app.include_router(chat.router, prefix="/api/v1", tags=["Chat v1"])
